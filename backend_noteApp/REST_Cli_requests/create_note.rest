@@ -1,0 +1,7 @@
+POST http://localhost:3001/api/notes
+Content-Length: application/json
+
+{
+    "content": "Make Hacking the best thing",
+    "important": "true",
+}

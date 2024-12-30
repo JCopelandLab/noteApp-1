@@ -1,0 +1,54 @@
+{
+  "notes": [
+    {
+      "id": "1",
+      "content": "HTML is easy",
+      "important": false
+    },
+    {
+      "id": "2",
+      "content": "Browser can execute only JavaScript",
+      "important": false
+    },
+    {
+      "id": "3",
+      "content": "GET and POST are the most important methods of HTTP protocol",
+      "important": false
+    },
+    {
+      "id": "4",
+      "content": "JavaScript is cool",
+      "important": false
+    },
+    {
+      "id": "5",
+      "content": "Testing code with Postmon",
+      "important": false
+    },
+    {
+      "id": "6",
+      "content": "Docker is a Tool",
+      "important": false
+    },
+    {
+      "id": "7",
+      "content": "Web Dev is baseline",
+      "important": false
+    },
+    {
+      "id": "8",
+      "content": "WebDev",
+      "important": false
+    },
+    {
+      "id": "9",
+      "content": "Web Dev is entry",
+      "important": false
+    },
+    {
+      "id": "10",
+      "content": "be better",
+      "important": false
+    }
+  ]
+}
