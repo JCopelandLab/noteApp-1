@@ -66,9 +66,11 @@ app.use(cors());
 const baseUrl = "/api/notes";
 //
 // get default text
+/*
 app.get("/", (request, response) => {
   response.send("<h1>Hello There, backend here!</h1>");
 });
+*/
 //
 // get all resources
 app.get(baseUrl, (request, response) => {
