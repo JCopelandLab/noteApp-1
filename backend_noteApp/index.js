@@ -104,9 +104,9 @@ app.post(baseUrl, (request, response) => {
 
   const genId = () => {
     const maxId =
-      notes.length > 0 ? Math.min(...notes.map((note) => Number(note.id))) : 0;
+      notes.length > 0 ? Math.max(...notes.map((note) => Number(note.id))) : 0;
 
-    return String(maxId);
+    return String(maxId + 1);
   };
 
   if (!body.content) {
