@@ -57,11 +57,13 @@ let notes = [
 const express = require("express");
 const app = express();
 app.use(express.json());
+app.use(express.static("dist"));
 
 // middleware cors
 const cors = require("cors");
 app.use(cors());
 
+const baseUrl = "/api/notes";
 //
 // get default text
 app.get("/", (request, response) => {
@@ -69,12 +71,12 @@ app.get("/", (request, response) => {
 });
 //
 // get all resources
-app.get("/api/notes", (request, response) => {
+app.get(baseUrl, (request, response) => {
   response.json(notes);
 });
 
 // get specific resource; id
-app.get("/api/notes/:id", (request, response) => {
+app.get(`${baseUrl}/:id`, (request, response) => {
   const id = request.params.id;
   const foundNote = notes.find((note) => note.id === id);
 
@@ -89,7 +91,7 @@ app.get("/api/notes/:id", (request, response) => {
 });
 
 // specific resource deletion
-app.delete("/api/notes/:id", (request, response) => {
+app.delete(`${baseUrl}/:id`, (request, response) => {
   const id = request.params.id;
   notes = notes.filter((note) => note.id !== id);
 
@@ -100,7 +102,7 @@ app.delete("/api/notes/:id", (request, response) => {
 });
 
 // add resources
-app.post("/api/notes", (request, response) => {
+app.post(baseUrl, (request, response) => {
   const body = request.body;
 
   const genId = () => {
@@ -127,7 +129,7 @@ app.post("/api/notes", (request, response) => {
 });
 
 //update existing item
-app.put("/api/notes/:id", (request, response) => {
+app.put(`${baseUrl}/:id`, (request, response) => {
   const id = request.params.id;
 
   const note = notes.find((note) => note.id === id);
