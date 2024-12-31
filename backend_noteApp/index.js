@@ -106,7 +106,7 @@ app.post(baseUrl, (request, response) => {
     const maxId =
       notes.length > 0 ? Math.min(...notes.map((note) => Number(note.id))) : 0;
 
-    return String(maxId + 1);
+    return String(maxId);
   };
 
   if (!body.content) {
