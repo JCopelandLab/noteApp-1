@@ -107,7 +107,7 @@ function App() {
               SetShowAll(!showAll);
             }}
           >
-            show {showAll ? "importnat" : "all"}
+            show {showAll ? "important only" : "all"}
           </button>
         </div>
         <form onSubmit={addnotes}>

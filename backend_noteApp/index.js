@@ -110,9 +110,7 @@ app.post(baseUrl, (request, response) => {
   };
 
   if (!body.content) {
-    return response.status(400).json({
-      error: "content is missing",
-    });
+    return response.json({ error: "Content is Missing" }).status(400);
   }
 
   const newNote = {
