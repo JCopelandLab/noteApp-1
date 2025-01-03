@@ -69,7 +69,7 @@ const baseUrl = "/api/notes";
 //
 // get all resources
 app.get(baseUrl, (request, response) => {
-  response.json(notes);
+  return response.json(notes);
 });
 
 // get specific resource; id
