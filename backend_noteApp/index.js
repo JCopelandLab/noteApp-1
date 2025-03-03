@@ -3,52 +3,52 @@
 let notes = [
   {
     id: "1",
-    content: "HTML is wack",
+    content: "backend data",
     important: false,
   },
   {
     id: "2",
-    content: "Browser can execute only JavaScript",
+    content: "Browser connect to backend, this is backend data",
     important: false,
   },
   {
     id: "3",
-    content: "GET and POST are methods of HTTP protocol",
+    content: "GET and POST backend data",
     important: false,
   },
   {
     id: "4",
-    content: "JavaScript is cool",
+    content: "JavaScript to backend",
     important: false,
   },
   {
     id: "5",
-    content: "Testing code with Postmon",
+    content: "Testing backend on Postman",
     important: false,
   },
   {
     id: "6",
-    content: "Docker is a Tool",
+    content: "Docker to backend",
     important: false,
   },
   {
     id: "7",
-    content: "Web Dev is baseline",
+    content: "Web Dev backend",
     important: false,
   },
   {
     id: "8",
-    content: "WebDev",
+    content: "WebDev backend",
     important: false,
   },
   {
     id: "9",
-    content: "Web Dev is entry",
+    content: "backend",
     important: false,
   },
   {
     id: "10",
-    content: "be better",
+    content: "be better backend",
     important: false,
   },
 ];
@@ -56,61 +56,64 @@ let notes = [
 // simple web server
 const express = require("express");
 const app = express();
-app.use(express.json());
 app.use(express.static("dist"));
+
+// middleware
+const requestLogger = (req, res, next) => {
+  console.log("Method:", req.method);
+  console.log("Path:  ", req.path);
+  console.log("Body:  ", req.body);
+  console.log("---");
+  next();
+};
 
 // middleware cors
 const cors = require("cors");
 app.use(cors());
+app.use(express.json());
+app.use(requestLogger);
 
-const baseUrl = "/api/notes";
-//
+//resource URL
+const baseUrl = "/notes";
 
-//
+// generate resource id
+const genId = () => {
+  const maxId = notes.length > 0 ? Math.max(...notes.map((n) => n.id)) : 0;
+  return maxId + 1;
+};
+
 // get all resources
-app.get(baseUrl, (request, response) => {
-  return response.json(notes);
+app.get(baseUrl, (req, res) => {
+  res.json(notes);
+  return;
 });
 
 // get specific resource; id
-app.get(`${baseUrl}/:id`, (request, response) => {
-  const id = request.params.id;
+app.get(`${baseUrl}/:id`, (req, res) => {
+  const id = Number(req.params.id);
   const foundNote = notes.find((note) => note.id === id);
 
   if (foundNote) {
-    response.json(foundNote);
+    return res.json(foundNote);
   } else {
-    response
-      .send({ item: "previously deleted or never existed" })
-      .status(404)
-      .end();
+    return res.json({ ERROR: `Note ${id}, not found.` }).end();
   }
 });
 
 // specific resource deletion
 app.delete(`${baseUrl}/:id`, (request, response) => {
-  const id = request.params.id;
+  const id = Number(request.params.id);
   notes = notes.filter((note) => note.id !== id);
 
-  response
-    .send({ success: `item id: ${id} removed.` })
-    .status(204)
-    .end();
+  response.status(204).end();
 });
 
 // add resources
 app.post(baseUrl, (request, response) => {
   const body = request.body;
 
-  const genId = () => {
-    const maxId =
-      notes.length > 0 ? Math.max(...notes.map((note) => Number(note.id))) : 0;
-
-    return String(maxId + 1);
-  };
-
   if (!body.content) {
-    return response.json({ error: "Content is Missing" }).status(400);
+    return response.status(404).json({ "Content Error": "CONTENT REQUIRED" });
   }
 
   const newNote = {
@@ -119,13 +122,14 @@ app.post(baseUrl, (request, response) => {
     id: genId(),
   };
 
-  console.log(newNote, " :new note");
+  notes = notes.concat(newNote);
+  console.log("Added: ", newNote);
   response.json(newNote);
 });
 
 //update existing item
-app.put(`${baseUrl}/:id`, (request, response) => {
-  const id = request.params.id;
+app.patch(`${baseUrl}/:id`, (request, response) => {
+  const id = Number(request.params.id);
 
   const note = notes.find((note) => note.id === id);
 

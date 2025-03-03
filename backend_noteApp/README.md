@@ -47,9 +47,8 @@ The command above is tedious, so let's define an npm script for it in the packag
 // ..
 }
 
-There is no need to use the full path to nodemon in the script,
-node_modules/.bin/nodemon,
-as npm can automatically look for the executable file in that directory.
+There is no need to use the full path to nodemon in the script;
+node_modules/.bin/nodemon. NPM can automatically look for the executable file in that directory.
 
 We can now start the server in application development mode with the command
 

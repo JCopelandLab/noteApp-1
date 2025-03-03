@@ -1,14 +1,16 @@
 import axios from "axios";
-const baseUrl = "/api/notes";
+const baseUrl = "http://localhost:3000/notes";
 
 const getAll = () => {
   const request = axios.get(baseUrl);
   return request.then((response) => response.data);
 };
 
-const create = (newObject) => {
-  const request = axios.post(baseUrl, newObject);
-  return request.then((response) => response.data);
+const add = (newObject) => {
+  console.log("Axios: uploading Obj to server");
+  axios.post(baseUrl, newObject).then((response) => {
+    console.log("added", response.data);
+  });
 };
 
 const update = (id, newObject) => {
@@ -18,6 +20,6 @@ const update = (id, newObject) => {
 
 export default {
   getAll,
-  create,
+  add,
   update,
 };

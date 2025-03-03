@@ -2,53 +2,53 @@
   "notes": [
     {
       "id": "1",
-      "content": "HTML is easy",
-      "important": false
+      "content": "front end space",
+      "important": true
     },
     {
       "id": "2",
-      "content": "Browser can execute only JavaScript",
+      "content": "data on the front",
       "important": false
     },
     {
       "id": "3",
-      "content": "GET and POST are the most important methods of HTTP protocol",
+      "content": "GET and POST front end data",
       "important": false
     },
     {
       "id": "4",
-      "content": "JavaScript is cool",
+      "content": "JavaScript is cool on the front end",
       "important": false
     },
     {
       "id": "5",
-      "content": "Testing code with Postmon",
-      "important": false
+      "content": "Testing front end code with Postmon",
+      "important": true
     },
     {
       "id": "6",
       "content": "Docker is a Tool",
-      "important": false
+      "important": true
     },
     {
       "id": "7",
-      "content": "Web Dev is baseline",
-      "important": false
+      "content": "Web Dev front end",
+      "important": true
     },
     {
       "id": "8",
-      "content": "WebDev",
-      "important": false
+      "content": "WebDev front",
+      "important": true
     },
     {
       "id": "9",
-      "content": "Web Dev is entry",
-      "important": false
+      "content": "Web Dev",
+      "important": true
     },
     {
       "id": "10",
-      "content": "be better",
-      "important": false
+      "content": "better front end",
+      "important": true
     }
   ]
 }

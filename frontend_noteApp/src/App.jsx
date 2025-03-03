@@ -1,59 +1,75 @@
 import noteServices from "./services/notes";
 import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
-import Alert from "./components/Alert";
 import Footer from "./components/Footer";
+import Alert from "./components/Alert";
 import Note from "./components/Note";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [notes, setNotes] = useState(null);
+  const [alertMessage, setAlertMessage] = useState(null);
   const [showAll, SetShowAll] = useState(true);
   const [newNote, setNewNote] = useState("");
-  const [alertMessage, setAlertMessage] = useState("error response");
+  const [notes, setNotes] = useState([]);
+  const [count, setCount] = useState(0);
 
   //render note content for setNote state hook from database
-  useEffect(() => {
-    noteServices.getAll().then((response) => {
-      console.log("Data: ", response);
+  const infoPull = () => {
+    const request = noteServices.getAll();
+    return request.then((response) => {
       setNotes(response);
     });
+  };
+
+  //doesnt render anything if notes is still null
+
+  useEffect(() => {
+    infoPull();
   }, []);
 
-  //dont render anything if notes is still null
-  if (!notes) return null;
+  //update server data
+  const updateData = (id, obj) => {
+    noteServices.update(id, obj);
+  };
 
-  // toggle list view based on importance values; true - false
-  const notesToShow = showAll ? notes : notes.filter((note) => note.important);
-
-  // toggle individual note importance
+  // function to toggle an important property value and update it
   const toggleImportance = (id) => {
-    const url = `http://localhost:3001/api/notes/${id}`;
-    const note = notes.find((i) => i.id === id);
-    const changedNote = { ...note, important: !note.important };
+    const note = notes.find((note) => note.id === id);
+    const updatedNote = { ...note, important: !note.important };
 
-    noteServices
-      .update(id, changedNote)
-      .then((returnedNote) => {
-        setNotes(notes.map((note) => (note.id !== id ? note : returnedNote)));
-      })
-      .catch((error) => {
-        setAlertMessage(
-          `Note ${note.content} was already removed from the server`
-        );
-        setTimeout(() => {
-          setAlertMessage(null);
-        }, 5000);
-        setNotes(notes.filter((n) => n.id !== id));
-      });
+    updateUI(updatedNote);
+    updateData(id, note);
+
+    // noteServices
+    //   .update(id, updatedNote)
+    //   .then((response) => {
+    //     setNotes(notes.map((note) => (note.id !== id ? note : response)));
+    //   })
+    //   .catch((error) => {
+    //     console.log(`update note Error: ${error}}`);
+    //     setAlertMessage(
+    //       `Note ${note.content} was already removed from the server`
+    //     );
+    //     setTimeout(() => {
+    //       setAlertMessage(null);
+    //     }, 5000);
+    //     setNotes(notes.filter((n) => n.id !== id));
+    //   });
   };
 
   //form button click handler
-  const addnotes = (event) => {
+  const addNotes = (event) => {
     event.preventDefault();
     console.log("button form clicked", event.target);
+
+    if (!newNote) {
+      setAlertMessage("value needed");
+      setTimeout(() => {
+        setAlertMessage(null);
+      }, 2000);
+      return;
+    }
 
     const newNoteObj = {
       content: newNote,
@@ -61,11 +77,8 @@ function App() {
       important: Math.random() > 0.5,
     };
 
-    noteServices.create(newNoteObj).then((returnedNote) => {
-      console.log("response of adding new note", returnedNote);
-      setNotes(notes.concat(returnedNote));
-      setNewNote("");
-    });
+    noteServices.add(newNoteObj);
+    setNotes(notes.concat(newNoteObj));
   };
 
   // inputfield change event handler
@@ -85,50 +98,44 @@ function App() {
             <img src={reactLogo} className="logo react" alt="React logo" />
           </a>
         </div>
-        <h1>Vite + React</h1>
-        <div className="card">
-          <button onClick={() => setCount((count) => count + 1)}>
-            count is {count}
-          </button>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test HMR
-          </p>
-        </div>
-        <p className="read-the-docs">
-          Click on the Vite and React logos to learn more
-        </p>
+        <span>
+          <h1>VITE</h1> <h1>REACT</h1>
+        </span>
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <div className="card"></div>
+        <p className="read-the-docs">Data sourcing and manipulation</p>
       </div>
       <div>
         <h1 className="headNote">NOTES</h1>
+        <button
+          onClick={() => {
+            SetShowAll(!showAll);
+          }}
+        >
+          {showAll ? "all notes" : "some notes"}
+        </button>
         <Alert message={alertMessage} />
         <div>
-          <button
-            onClick={() => {
-              SetShowAll(!showAll);
-            }}
-          >
-            show {showAll ? "important only" : "all"}
-          </button>
+          <ul>
+            {!notes ? (
+              <p>Loading...</p>
+            ) : (
+              notes.map((note) => (
+                <Note
+                  note={note}
+                  key={note.id}
+                  toggleImportance={toggleImportance}
+                />
+              ))
+            )}
+          </ul>
         </div>
-        <form onSubmit={addnotes}>
-          <input
-            value={newNote}
-            onChange={handleNoteChange}
-            placeholder="..."
-          />
-          <button type="submit">Save</button>
-        </form>
 
-        <ul>
-          {notesToShow.map((note) => (
-            <Note
-              key={note.id}
-              note={note}
-              toggleImportance={() => toggleImportance(note.id)}
-            />
-          ))}
-        </ul>
-        <Footer />
+        <div>
+          <Footer />
+        </div>
       </div>
     </>
   );

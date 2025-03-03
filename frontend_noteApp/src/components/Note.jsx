@@ -4,7 +4,13 @@ const Note = ({ note, toggleImportance }) => {
   return (
     <li className="note">
       {note.content}
-      <button onClick={toggleImportance}>{label}</button>
+      <button
+        onClick={() => {
+          toggleImportance(note.id);
+        }}
+      >
+        {label}
+      </button>
     </li>
   );
 };
