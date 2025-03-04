@@ -3,7 +3,7 @@
     {
       "id": "0",
       "content": "front end space",
-      "important": false
+      "important": true
     },
     {
       "id": "1",
@@ -18,7 +18,7 @@
     {
       "id": "3",
       "content": "JavaScript is cool on the front end",
-      "important": false
+      "important": true
     },
     {
       "id": "4",
@@ -28,7 +28,7 @@
     {
       "id": "5",
       "content": "Docker is a Tool",
-      "important": false
+      "important": true
     },
     {
       "id": "6",
@@ -49,11 +49,6 @@
       "id": "9",
       "content": "better front end",
       "important": false
-    },
-    {
-      "id": 10,
-      "content": "GPU testing",
-      "important": true
     }
   ]
 }

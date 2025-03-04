@@ -21,15 +21,20 @@ const App = () => {
         console.log(`Error fetching data: ${error}`);
       }
     })();
-  }, []);
+  }, [notes]);
+
+  //if no notes content DONT render
+  if (!notes) {
+    return null;
+  }
 
   const addNote = (event) => {
     event.preventDefault();
-
+    //notes isnt updating right away so id is copied
     const genId = () => {
       const id =
         notes.length > 0 ? Math.max(...notes.map((note) => note.id)) + 1 : 0;
-      return id;
+      return String(id);
     };
 
     const noteObject = {
@@ -42,17 +47,18 @@ const App = () => {
       try {
         noteServices.create(noteObject).then((returned) => {
           setNotes(notes.concat(noteObject));
-          setNewNote("");
           console.log(returned);
         });
       } catch (error) {
         console.log(`Error creating: ${error}`);
       }
+      setNewNote("");
     })();
   };
 
   const toggleImportanceOf = (id) => {
     const note = notes.find((n) => n.id === id);
+    console.log(note);
     const changedNote = { ...note, important: !note.important };
 
     noteServices
@@ -61,9 +67,7 @@ const App = () => {
         setNotes(notes.map((note) => (note.id !== id ? note : returnedNote)));
       })
       .catch((error) => {
-        setErrorMessage(
-          `Note '${note.content}' was already removed from server`
-        );
+        setErrorMessage(`Note Error: ${error}`);
         setTimeout(() => {
           setErrorMessage(null);
         }, 5000);
@@ -98,6 +102,7 @@ const App = () => {
       </ul>
       <form onSubmit={addNote}>
         <input
+          required
           value={newNote}
           placeholder="..."
           onChange={handleNoteChange}
