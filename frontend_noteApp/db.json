@@ -1,53 +1,58 @@
 {
   "notes": [
     {
-      "id": "1",
+      "id": "0",
       "content": "front end space",
-      "important": true
+      "important": false
     },
     {
-      "id": "2",
+      "id": "1",
       "content": "data on the front",
       "important": false
     },
     {
-      "id": "3",
+      "id": "2",
       "content": "GET and POST front end data",
       "important": false
     },
     {
-      "id": "4",
+      "id": "3",
       "content": "JavaScript is cool on the front end",
       "important": false
     },
     {
-      "id": "5",
+      "id": "4",
       "content": "Testing front end code with Postmon",
       "important": true
     },
     {
-      "id": "6",
+      "id": "5",
       "content": "Docker is a Tool",
-      "important": true
+      "important": false
+    },
+    {
+      "id": "6",
+      "content": "Web Dev front end",
+      "important": false
     },
     {
       "id": "7",
-      "content": "Web Dev front end",
-      "important": true
+      "content": "WebDev front",
+      "important": false
     },
     {
       "id": "8",
-      "content": "WebDev front",
-      "important": true
+      "content": "Web Dev",
+      "important": false
     },
     {
       "id": "9",
-      "content": "Web Dev",
-      "important": true
+      "content": "better front end",
+      "important": false
     },
     {
-      "id": "10",
-      "content": "better front end",
+      "id": 10,
+      "content": "GPU testing",
       "important": true
     }
   ]

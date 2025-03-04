@@ -33,5 +33,6 @@ index.html CSP; Content-Security Policy meta tag:
     - There is no strict default-src directives; https://csp.withgoogle.com/docs/strict-csp.html
 
 <!--
-quandary: the siimplicity of data manipulation based on button click and not user inputs. It is overkill to sanitize the information on the
+quandary: the siimplicity of data manipulation based on resources' button clicks.
+No string user input = limit data sanitation on specific functions
  -->

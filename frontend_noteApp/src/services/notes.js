@@ -1,15 +1,20 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3000/notes";
+const baseUrl = "http://localhost:4000/notes";
 
 const getAll = () => {
-  const request = axios.get(baseUrl);
-  return request.then((response) => response.data);
+  try {
+    return axios.get(baseUrl).then((response) => {
+      return response.data;
+    });
+  } catch (error) {
+    console.log(`service error: GETALL; ${error}`);
+  }
 };
 
-const add = (newObject) => {
-  console.log("Axios: uploading Obj to server");
+const create = (newObject) => {
+  console.log("note services; create is prompted");
   axios.post(baseUrl, newObject).then((response) => {
-    console.log("added", response.data);
+    console.log("Obj created; ", response.data);
   });
 };
 
@@ -18,8 +23,15 @@ const update = (id, newObject) => {
   return request.then((response) => response.data);
 };
 
+const remove = (id) => {
+  axios.delete(`${baseUrl}/id`, (req, res) => {
+    return;
+  });
+};
+
 export default {
   getAll,
-  add,
+  create,
   update,
+  remove,
 };

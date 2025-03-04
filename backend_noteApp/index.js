@@ -73,13 +73,10 @@ app.use(cors());
 app.use(express.json());
 app.use(requestLogger);
 
-//resource URL
-const baseUrl = "/notes";
-
 // generate resource id
 const genId = () => {
-  const maxId = notes.length > 0 ? Math.max(...notes.map((n) => n.id)) : 0;
-  return maxId + 1;
+  const id = notes.length > 0 ? Math.max(...notes.map((n) => n.id)) + 1 : 0;
+  return id;
 };
 
 // get all resources
@@ -96,12 +93,15 @@ app.get(`${baseUrl}/:id`, (req, res) => {
   if (foundNote) {
     return res.json(foundNote);
   } else {
-    return res.json({ ERROR: `Note ${id}, not found.` }).end();
+    return res
+      .json({ ERROR: `id: ${id}, not found.` })
+      .status(404)
+      .end();
   }
 });
 
 // specific resource deletion
-app.delete(`${baseUrl}/:id`, (request, response) => {
+app.delete(`/api/notes/:id`, (request, response) => {
   const id = Number(request.params.id);
   notes = notes.filter((note) => note.id !== id);
 
@@ -109,34 +109,22 @@ app.delete(`${baseUrl}/:id`, (request, response) => {
 });
 
 // add resources
-app.post(baseUrl, (request, response) => {
+app.post("/api/notes", (request, response) => {
   const body = request.body;
 
   if (!body.content) {
-    return response.status(404).json({ "Content Error": "CONTENT REQUIRED" });
+    return response.status(404).json({ "Content Error": "Content: missing" });
   }
 
   const newNote = {
     content: body.content,
-    important: body.important || false,
+    important: Math.min() > 0.5,
     id: genId(),
   };
 
   notes = notes.concat(newNote);
   console.log("Added: ", newNote);
   response.json(newNote);
-});
-
-//update existing item
-app.patch(`${baseUrl}/:id`, (request, response) => {
-  const id = Number(request.params.id);
-
-  const note = notes.find((note) => note.id === id);
-
-  const updatedNote = { ...note, important: !note.important };
-
-  response.send(updatedNote);
-  // assign update into data on button click
 });
 
 //connection
