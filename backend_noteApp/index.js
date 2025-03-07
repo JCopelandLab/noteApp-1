@@ -92,14 +92,13 @@ app.get(`${baseUrl}/:id`, (req, res) => {
   const id = Number(req.params.id);
   const foundNote = notes.find((note) => note.id === id);
 
-  if (foundNote) {
-    return res.json(foundNote);
-  } else {
-    return res
-      .json({ ERROR: `id: ${id}, not found.` })
-      .status(404)
-      .end();
-  }
+  if (foundNote)
+    try {
+      return res.json(foundNote);
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
 });
 
 // specific resource deletion
@@ -133,5 +132,5 @@ app.post("/api/notes", (request, response) => {
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
-  console.log(`App running on port: ${PORT}`);
+  console.log(`Server running on port: ${PORT}`);
 });
