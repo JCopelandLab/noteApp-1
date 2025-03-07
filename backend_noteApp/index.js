@@ -67,6 +67,8 @@ const requestLogger = (req, res, next) => {
   next();
 };
 
+const baseUrl = "/api/notes";
+
 // middleware cors
 const cors = require("cors");
 app.use(cors());
