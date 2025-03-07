@@ -8,7 +8,7 @@
   "type": "module",
   "main": "eslint.config.js",
   "scripts": {
-    "start": "npm start",
+    "start": "node notes.js",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
