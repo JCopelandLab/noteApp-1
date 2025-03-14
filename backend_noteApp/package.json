@@ -6,7 +6,8 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:ui": "@powershell Remove-Item -Recurse -Force dist && cd ../frontend && npm run build && @powershell Copy-Item dist -Recurse ../backend",
+    "build:ui": "rm -rf build && cd ../backend_noteApp/ && npm run build && cp -r build ../backend_noteApp",
+    "deploy": "git push origin main",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
   },
   "repository": {
