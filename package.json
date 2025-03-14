@@ -15,7 +15,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"cd backend_noteapp && npm run dev\" \"cd frontend_noteapp && npm run dev\" ",
+    "dev": "concurrently \"cd backend_noteApp && npm start\" \"cd frontend_noteApp && npm run dev\" ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

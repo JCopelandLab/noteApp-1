@@ -27,7 +27,7 @@ index.html CSP; Content-Security Policy meta tag:
 
 <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *;**script-src 'self' http://localhost:300/ 'unsafe-inline' 'unsafe-eval';** "
+      content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *;**script-src 'self' http://localhost:3001/ 'unsafe-inline' 'unsafe-eval';** "
     />
 
     - Sometimes, the meta tag is the only way to deliver the Content-Secuirty Policy to the page.
